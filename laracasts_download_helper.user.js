@@ -21,7 +21,7 @@ $(document).ready(function () {
             var that = $(this);
 
             $.get(url, function (data) {
-                video_src = $(data).find('video source').attr('src');
+                video_src = $(data).find('a.button.for-download ').attr('href');
                 var dl = '<a href="' + video_src + '" title="' + (index + 1) + ' - ' + title + '" target="_blank" class="button"> <span>Download</span></a>';
                 that.append('<span class="">' + dl + '</span>');
             });
