@@ -2,12 +2,12 @@
 // @name        Laracasts Download Helper
 // @namespace   Vusys
 // @include     https://laracasts.com/series/*
-// @version     3
+// @version     4
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
     $('body').append('<a class="button vdl" style="position:fixed;bottom:25px;left:25px;">Get Download Buttons</a>');
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
             var that = $(this);
 
             $.get(url, function (data) {
-                video_src = $(data).find('a.button.for-download ').attr('href');
+                video_src = $(data).find("a[title='Download Video']").attr('href');
                 var dl = '<a href="' + video_src + '" title="' + (index + 1) + ' - ' + title + '" target="_blank" class="button"> <span>Download</span></a>';
                 that.append('<span class="">' + dl + '</span>');
             });
