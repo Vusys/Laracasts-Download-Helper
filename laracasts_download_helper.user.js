@@ -2,30 +2,30 @@
 // @name        Laracasts Download Helper
 // @namespace   Vusys
 // @include     https://laracasts.com/series/*
-// @version     4
+// @version     5
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
 jQuery(document).ready(function ($) {
 
-    $('body').append('<a class="button vdl" style="position:fixed;bottom:25px;left:25px;">Get Download Buttons</a>');
+    $('body').append('<a class="tw-text-center lg:tw-block tw-button tw-border tw-border-solid tw-border-white is-white tw-mr-4 tw-text-xs vdl" style="position:fixed;bottom:25px;left:25px;">Get Download Buttons</a>');
 
     $(document).on('click', '.vdl', function () {
 
         $(this).slideToggle();
 
-        $('.episode-list-item').each(function (index) {
-            var title = $(this).find('.episode-list-title a').text().trim();
-            var url = $(this).find('.episode-list-title a').attr('href');
+        $('.episode-list-title').each(function (index) {
+            var title = $(this).find('a.tw-text-black').text().trim();
+            var url = $(this).find('a.tw-text-black').attr('href');
             var that = $(this);
 
-            $.get(url, function (data) {
-                video_src = $(data).find("a[title='Download Video']").attr('href');
+          $.get('https://laracasts.com' + url, function (data) {              
+                video_src = $(data).find("video-card").attr('download-link');
                 var dl = '<a href="' + video_src + '" title="' + (index + 1) + ' - ' + title + '" target="_blank" class="button"> <span>Download</span></a>';
-                that.append('<span class="">' + dl + '</span>');
+                that.parent().parent().parent().parent().append('<span class="">' + dl + '</span>');
             });
-
+          
         });
 
     });
