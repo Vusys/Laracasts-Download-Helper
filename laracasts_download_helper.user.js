@@ -2,7 +2,7 @@
 // @name        Laracasts Download Helper
 // @namespace   Vusys
 // @include     https://laracasts.com/series/*
-// @version     5
+// @version     6
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
@@ -20,12 +20,14 @@ jQuery(document).ready(function ($) {
             var url = $(this).find('a.tw-text-black').attr('href');
             var that = $(this);
 
-          $.get('https://laracasts.com' + url, function (data) {              
-                video_src = $(data).find("video-card").attr('download-link');
-                var dl = '<a href="' + video_src + '" title="' + (index + 1) + ' - ' + title + '" target="_blank" class="button"> <span>Download</span></a>';
+            $.get('https://laracasts.com' + url, function (data) {
+                json = $('<div></div>').append($.parseHTML(data)).find('#app').data('page');
+
+                var dl = '<a href="' + json.props.downloadLink + '" title="' + (index + 1) + ' - ' + title + '" target="_blank" class="button"> <span>Download</span></a>';
                 that.parent().parent().parent().parent().append('<span class="">' + dl + '</span>');
             });
-          
+
+
         });
 
     });
